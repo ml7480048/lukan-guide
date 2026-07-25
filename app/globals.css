@@ -999,6 +999,23 @@ ol {
   font-weight: 300;
 }
 
+.guide__quote--wide {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 64rem) {
+  .guide__quote--wide {
+    grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: baseline;
+  }
+  .guide__quote--wide p {
+    font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  }
+}
+
 .guide__quote {
   margin-top: clamp(1.75rem, 3vw, 2.5rem);
   padding: clamp(1.125rem, 2.4vw, 1.75rem);
@@ -1114,6 +1131,9 @@ ol {
 .section-cut__photo {
   position: relative;
   aspect-ratio: 3 / 4;
+  /* The photograph stays with the reader while the strata scroll past it. */
+  position: sticky;
+  top: 5.5rem;
   overflow: hidden;
   border-radius: var(--plate-radius);
   box-shadow: var(--mount);
@@ -1553,6 +1573,11 @@ ol {
   }
 }
 
+/* In the narrow hero plate the two actions read better stacked. */
+.stub__actions--stack {
+  grid-template-columns: 1fr !important;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1568,8 +1593,13 @@ ol {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
+  text-align: center;
   cursor: pointer;
   transition: background 0.25s, color 0.25s, border-color 0.25s, translate 0.25s var(--ease);
+}
+
+.btn--nowrap {
+  white-space: nowrap;
 }
 
 .btn--primary {
@@ -1856,14 +1886,17 @@ ol {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.62) contrast(1.04) brightness(0.5);
+  object-position: 50% 42%;
+  filter: saturate(0.7) contrast(1.05) brightness(0.72);
 }
 
 .sheet__wash {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(7, 24, 42, 0.86), rgba(5, 15, 26, 0.97));
+  background:
+    linear-gradient(180deg, rgba(7, 24, 42, 0.7) 0%, rgba(7, 24, 42, 0.82) 55%, rgba(5, 15, 26, 0.97) 100%),
+    radial-gradient(80% 60% at 20% 40%, rgba(37, 107, 158, 0.28), transparent 70%);
 }
 
 .sheet__crumbs {
@@ -2031,12 +2064,11 @@ ol {
 
 @media (prefers-reduced-motion: no-preference) {
   .js .mountable {
-    opacity: 0.28;
-    translate: 0 14px;
+    opacity: 0.5;
+    translate: 0 10px;
     transition:
-      opacity 0.8s var(--ease),
-      translate 0.9s var(--ease),
-      box-shadow 0.9s var(--ease);
+      opacity 0.5s var(--ease),
+      translate 0.6s var(--ease);
   }
 
   .js .mountable.is-mounted {
