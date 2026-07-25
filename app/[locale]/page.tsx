@@ -130,11 +130,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 ))}
               </div>
 
-              <div className="stub__actions" style={{ marginTop: '1.25rem' }}>
+              <div className="stub__actions stub__actions--stack" style={{ marginTop: '1.25rem' }}>
                 <a className="btn btn--primary" href="#desk">
                   {h.section.cta}
                 </a>
-                <a className="btn btn--ghost" href={`tel:${CONTACT.phoneTel}`}>
+                <a className="btn btn--ghost btn--nowrap" href={`tel:${CONTACT.phoneTel}`}>
                   {CONTACT.phoneHuman}
                 </a>
               </div>
@@ -165,11 +165,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <p key={i}>{p}</p>
                 ))}
               </div>
-
-              <blockquote className="guide__quote">
-                <p>{h.guide.pullquote}</p>
-                <cite>{h.exhibit.guide}</cite>
-              </blockquote>
 
               <p style={{ marginTop: '1.5rem' }}>
                 <Link href={`/${loc}/about`} className="textlink">
@@ -202,6 +197,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </div>
             </div>
           </div>
+
+          <blockquote className="guide__quote guide__quote--wide">
+            <p>{h.guide.pullquote}</p>
+            <cite>{h.exhibit.guide}</cite>
+          </blockquote>
         </div>
       </section>
 
