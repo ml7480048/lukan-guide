@@ -42,11 +42,12 @@ export function roman(n: number): string {
 /** Tours shown in Room III on the home page — the eight that carry the offer. */
 export const FEATURED = [
   'classic',
+  'night',
   'antique',
-  'vatican',
   'clement',
   'borghese',
   'centuries',
-  'night',
+  'vatican',
+  'squares',
   'tivoli',
 ];
