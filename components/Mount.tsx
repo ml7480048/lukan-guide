@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 /**
@@ -9,6 +10,11 @@ import { useEffect } from 'react';
  * never see it at all.
  */
 export function Mount() {
+  // This component lives in the layout, so without the pathname dependency the
+  // observer would never be rebuilt for a client-side navigation and every
+  // plate on the next page would stay half-faded.
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -16,7 +22,9 @@ export function Mount() {
 
     root.classList.add('js');
 
-    const targets = Array.from(document.querySelectorAll<HTMLElement>('.mountable'));
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('.mountable:not(.is-mounted)'),
+    );
     if (!targets.length || !('IntersectionObserver' in window)) {
       targets.forEach((el) => el.classList.add('is-mounted'));
       return;
@@ -32,12 +40,12 @@ export function Mount() {
           io.unobserve(el);
         }
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+      { rootMargin: '160px 0px -6% 0px', threshold: 0.01 },
     );
 
     targets.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
