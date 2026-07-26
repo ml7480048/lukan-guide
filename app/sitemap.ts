@@ -1,11 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { SITE_URL } from '@/lib/content';
-import { LOCALES, SECTIONS } from '@/lib/types';
+import { LOCALES, SECTIONS, SITE_URL } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
-
   for (const locale of LOCALES) {
     entries.push({
       url: `${SITE_URL}/${locale}`,
@@ -18,10 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${SITE_URL}/${locale}/${section}`,
         lastModified: now,
         changeFrequency: 'monthly',
-        priority: 0.7,
+        priority: section === 'book' ? 0.8 : 0.7,
       });
     }
   }
-
   return entries;
 }
