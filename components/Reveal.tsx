@@ -5,19 +5,26 @@ import { useEffect } from 'react';
 
 /**
  * The one motion moment: content rises gently into place on scroll. Gated on a
- * `js` class so nothing is ever hidden without JavaScript, skipped entirely for
+ * `js` class so nothing is ever hidden without JavaScript, skipped for
  * reduced-motion, and rebuilt on navigation so the next page animates too.
+ *
+ * Anything already inside (or near) the viewport on load is revealed at once —
+ * only elements further down wait for the observer. This keeps the first
+ * viewport from ever sitting faded.
  */
 export function Reveal() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const root = document.documentElement;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const root = document.documentElement;
     root.classList.add('js');
 
     const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal:not(.in)'));
-    if (!els.length || !('IntersectionObserver' in window)) {
+    if (!els.length) return;
+
+    if (!('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('in'));
       return;
     }
@@ -31,10 +38,26 @@ export function Reveal() {
           }
         }
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.04 },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    // First frame: reveal what's already on screen; observe the rest.
+    const raf = requestAnimationFrame(() => {
+      const trigger = window.innerHeight * 0.92;
+      for (const el of els) {
+        if (el.classList.contains('in')) continue;
+        if (el.getBoundingClientRect().top < trigger) {
+          el.classList.add('in');
+        } else {
+          io.observe(el);
+        }
+      }
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
   }, [pathname]);
 
   return null;
