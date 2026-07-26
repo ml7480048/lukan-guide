@@ -1,6 +1,6 @@
 # lukan.guide
 
-Site for **Oleksandra Lukan** — historian and licensed guide in Rome, the Vatican and Vienna.
+Site for **Oleksandra Lukan** — historian and private guide in Rome, the Vatican and Vienna.
 Next.js 15 (App Router), TypeScript, no CSS framework. Three languages: `ua`, `ru`, `en`.
 
 ```bash
@@ -9,57 +9,57 @@ npm run dev      # http://localhost:3000 → redirects to /ua
 npm run build
 ```
 
-## Structure
+## Two designs, two branches
+
+- **`main`** — the current, third iteration: light, blue, simple. This is what deploys to
+  production (`lukan-guide.vercel.app`).
+- **`museum`** — the previous "museum label" design (dark blue, bone plates), preserved in
+  full. Vercel serves it at its own branch preview URL. Nothing was thrown away.
+
+## Structure (main)
 
 ```
-app/[locale]/page.tsx              home — the seven rooms
-app/[locale]/[section]/page.tsx    every inner section, one dynamic route
+app/[locale]/page.tsx              home — Познайомимося + video + destinations + reviews
+app/[locale]/[section]/page.tsx    book · vatican · rome · vienna · reviews · glossary
 app/globals.css                    the whole design system
-lib/ua.ts · ru.ts · en.ts          all copy, one file per language
-lib/tours.ts                       the 22-tour catalogue (order, groups, images)
-lib/images.ts                      every image URL, in one place
-middleware.ts                      language detection for `/`
-components/                        Masthead, Catalogue, Ticket, Panels, Plaque, Colophon
+lib/site.ts                        ALL content + all copy, one file, three languages
+components/                        Header, Footer, VideoHero, Booking, Socials, Reveal, JsonLd, icons
 ```
 
-## Editing content
-
-All text lives in `lib/ua.ts`, `lib/ru.ts`, `lib/en.ts`. They share one type
-(`lib/dict.ts`), so if a field is missing in one language TypeScript says so at build
-time. Adding a tour means one line in `lib/tours.ts` plus an entry with the same `id` in
-each of the three language files.
-
-Section slugs (`about`, `tours`, `around`, …) are identical in all languages on purpose:
-switching language keeps the reader on the same page.
+Everything a non-developer needs to edit lives in **`lib/site.ts`**. It holds the three
+language dictionaries (`ua`, `ru`, `en`) sharing one TypeScript type, so a missing
+translation becomes a build error rather than a broken page.
 
 ## The design
 
-Rome's own blue pigment as the field, bone plates mounted on it, cinnabar only where a
-museum uses red — mandatory booking, warnings, the primary action. Sections are numbered
-rooms; the language switch is a trilingual museum label; the booking form is a ticket stub
-that composes the WhatsApp or email message Oleksandra asked for (date, tour, time, reply
-address). The full direction contract is an HTML comment at the top of the home page
-markup.
+Light and airy, blue-forward — the blue Oleksandra likes, on a soft blue-white ground
+(the "too dark" note from the previous version is addressed). One type family (**Onest**),
+large sizes, no bold and no italics: emphasis comes from size and colour. Lots of lists.
+Booking is a simple form that opens **WhatsApp** (or Viber / email) with a ready-made
+message — nothing to set up, Oleksandra just receives a normal message.
 
-Fonts are loaded from Google Fonts by stylesheet link: **Spectral** (voice),
-**Golos Text** (labels), **PT Mono** (numbers) — all three with first-class Cyrillic.
+Built for GEO/SEO: semantic headings, FAQ blocks, a glossary of terms, and JSON-LD
+(`Person` + `FAQPage`) on every relevant page.
 
-## To replace before this is finished
+## To add — everything below is a deliberate placeholder
 
-Everything below is a deliberate placeholder, not an oversight.
-
-| What | Where | Notes |
+| What | Where | How |
 | --- | --- | --- |
-| **Photograph of Oleksandra** | `lib/images.ts` → `IMG.guide` | Currently a marble face, captioned as a placeholder in Room II. This is the single highest-value replacement on the site. |
-| **All other photography** | `lib/images.ts` | Verified Unsplash stock, chosen to fit the palette. Drop files into `/public` and change the values; nothing else needs to change. |
-| **Prices** | — | Deliberately absent: the site says "price on request" everywhere. The old list (150 € / 3 h etc.) is stale and must not be republished as-is. |
-| **Reviews / testimonials** | — | None invented. When real ones exist, they belong as a new room between III and IV. |
-| **Sections marked "in preparation"** | `lib/*.ts` → `sections.kids`, `sections.phrasebook`, `sections.figures`, `tours.legends` | Flagged in the UI as unfinished, exactly as Oleksandra describes them. Remove `draft: true` when they are ready. |
-| **Vienna** | — | Named in the masthead and metadata, but there is no Vienna tour in the catalogue yet. |
-| **Addresses and opening hours** | `lib/*.ts` reference sections | Checked against official sites at build time, but they change. |
+| **Oleksandra’s video** | `lib/site.ts` → `VIDEO.youtubeId` | Set it to the YouTube id (the part after `watch?v=`). The hero poster then plays the real video. Until then a labelled poster shows. |
+| **Social links** | `lib/site.ts` → `SOCIALS` | Replace each `href: null` with the real profile URL (Instagram, Facebook, YouTube, Telegram). `null` renders a greyed “soon” icon. |
+| **Reviews + tourist photos** | `lib/site.ts` → each language’s `reviewsBlock.items` | Sample reviews are in place. Swap in Oleksandra’s real reviews; to show a photo with a tourist, replace the camera placeholder in `app/[locale]/[section]/page.tsx` and `page.tsx` (the `review__photo` block) with an `<Image>`. |
+| **Photo of Oleksandra** | `lib/site.ts` → `PIC.about` | Currently a stock portrait, captioned as a placeholder. |
+| **All other photography** | `lib/site.ts` → `PIC` | Verified Unsplash stock chosen to fit the blue palette. Drop files into `/public` and change the values. |
+| **Prices** | — | Deliberately absent: the site says the price is given on request via WhatsApp. |
+| **Vienna tours** | `lib/site.ts` → `pages.vienna` | Marked “on request”. Fill in real Vienna programmes when ready and remove `draft: true`. |
+
+## Contacts used on the site
+
+Phone / WhatsApp / Viber `+39 389 966 44 55`, email `alessandralukan@gmail.com`. Change
+them in one place: `lib/site.ts` → `CONTACT`.
 
 ## Deployment
 
-Pushing to `main` deploys to Vercel (project `9x16/lukan-guide`). No environment variables
-are needed. `next.config.mjs` allows remote images from `images.unsplash.com` and
-`upload.wikimedia.org`; add any new image host there.
+Pushing to `main` deploys to Vercel (project `9x16/lukan-guide`, framework preset
+**Next.js**). No environment variables. Remote images are allowed from
+`images.unsplash.com` in `next.config.mjs`; add any new host there.
