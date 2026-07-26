@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import '../globals.css';
-import { HTML_LANG, SITE_URL, dict } from '@/lib/content';
-import { LOCALES, isLocale, type Locale } from '@/lib/types';
-import { Masthead } from '@/components/Masthead';
-import { Colophon } from '@/components/Colophon';
-import { Mount } from '@/components/Mount';
+import { LOCALES, SITE_URL, dict, isLocale, type Locale } from '@/lib/site';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { Reveal } from '@/components/Reveal';
+import { JsonLd } from '@/components/JsonLd';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -19,27 +19,21 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = dict(locale);
-
   return {
     metadataBase: new URL(SITE_URL),
     title: t.meta.title,
     description: t.meta.description,
     alternates: {
       canonical: `/${locale}`,
-      languages: {
-        uk: '/ua',
-        ru: '/ru',
-        en: '/en',
-        'x-default': '/ua',
-      },
+      languages: { uk: '/ua', ru: '/ru', en: '/en', 'x-default': '/ua' },
     },
     openGraph: {
       type: 'website',
       title: t.meta.title,
       description: t.meta.description,
       url: `${SITE_URL}/${locale}`,
-      locale: HTML_LANG[locale],
       siteName: 'lukan.guide',
+      locale: t.htmlLang,
     },
     robots: { index: true, follow: true },
   };
@@ -58,24 +52,25 @@ export default async function LocaleLayout({
   const t = dict(loc);
 
   return (
-    <html lang={HTML_LANG[loc]}>
+    <html lang={t.htmlLang}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Golos+Text:wght@400;500;600&family=PT+Mono&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap"
         />
-        <meta name="theme-color" content="#07182a" />
+        <meta name="theme-color" content="#f3f7fc" />
       </head>
       <body>
-        <Mount />
-        <a className="skip" href="#room-1">
-          {t.ui.skipToContent}
+        <JsonLd locale={loc} />
+        <a className="skip" href="#main">
+          {t.ui.backHome}
         </a>
-        <Masthead locale={loc} />
-        {children}
-        <Colophon locale={loc} />
+        <Reveal />
+        <Header locale={loc} />
+        <main id="main">{children}</main>
+        <Footer locale={loc} />
       </body>
     </html>
   );
