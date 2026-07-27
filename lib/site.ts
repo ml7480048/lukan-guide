@@ -21,9 +21,7 @@ export const CONTACT = {
  */
 export const SOCIALS: { kind: 'instagram' | 'facebook' | 'youtube' | 'telegram'; href: string | null }[] = [
   { kind: 'instagram', href: null },
-  { kind: 'facebook', href: null },
-  { kind: 'youtube', href: null },
-  { kind: 'telegram', href: null },
+  { kind: 'facebook', href: 'https://www.facebook.com/Oleksandra.Lukan/' },
 ];
 
 /**
@@ -34,6 +32,18 @@ export const VIDEO = {
   youtubeId: null as string | null,
   poster: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5',
 } as const;
+
+/**
+ * Up to three videos for the home carousel — the centre one is active, you can
+ * scroll left/right to the others. Set `youtubeId` (the part after `watch?v=`)
+ * for each real video; until then a labelled poster shows. Swap `poster` for
+ * your own thumbnail image any time.
+ */
+export const VIDEOS: { youtubeId: string | null; poster: string }[] = [
+  { youtubeId: null, poster: 'https://images.unsplash.com/photo-1678970388666-e50b8006ab51' },
+  { youtubeId: null, poster: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5' },
+  { youtubeId: null, poster: 'https://images.unsplash.com/photo-1624347061892-822a65656966' },
+];
 
 /**
  * Availability calendar. Set `googleCalendarSrc` to a PUBLIC Google Calendar
@@ -113,6 +123,7 @@ export type Dict = {
     videoCaption: string;
     primary: string;
     secondary: string;
+    phoneNote: string;
   };
   about: {
     title: string;
@@ -229,10 +240,11 @@ const ua: Dict = {
   hero: {
     kicker: 'Гідеса-історикиня · Рим · Ватикан · Відень',
     title: 'Подаруйте собі Рим!',
-    lead: 'Олександра Лукань, історикиня, ліцензована гідеса в Римі, Ватикані та Відні. З приємністю допоможу Вам доторкнутись до міста — очима, душею і серцем, побачити його, відчути і закохатись! Рідною мовою, у зручному для Вас темпі.',
+    lead: 'Історикиня, ліцензована гідеса. Авторські екскурсії — закохую у Відень, Рим та Ватикан понад 20 років. Цікавезні, на одному диханні, оглядові екскурсії та екскурсії в музеях.',
     videoCaption: 'Одна хвилина — і ви відчуєте, як проходить екскурсія зі мною',
     primary: 'Забронювати екскурсію',
     secondary: 'Познайомитися ближче',
+    phoneNote: 'усі месенджери',
   },
   about: {
     title: 'Познайомимося',
@@ -240,6 +252,7 @@ const ua: Dict = {
     paragraphs: [
       'Я історикиня з університетською освітою і ліцензована гідеса у Ватикані, Римі та Австрії. У Римі живу і працюю понад двадцять років.',
       'Проводжу екскурсії рідною мовою. Розповідаю не дати, а історії — про людей, які створили це місто, і про те, чому воно й досі живе.',
+      'Останні п’ять років Відень став моїм другим домом. Безмежно люблю Рим, Ватикан і Відень — і допоможу вам закохатися в ці міста.',
     ],
     facts: [
       ['Освіта', 'Історикиня, університетська'],
@@ -478,10 +491,11 @@ const ru: Dict = {
   hero: {
     kicker: 'Гид-историк · Рим · Ватикан · Вена',
     title: 'Подарите себе Рим!',
-    lead: 'Александра Лукань, историк, лицензированный гид в Риме, Ватикане и Вене. С удовольствием помогу Вам прикоснуться к городу — глазами, душой и сердцем, увидеть его, почувствовать и влюбиться! На родном языке, в удобном для Вас темпе.',
+    lead: 'Историкиня, лицензированная гидеса. Авторские экскурсии — влюбляю в Вену, Рим и Ватикан более 20 лет. Интереснейшие, на одном дыхании, обзорные экскурсии и экскурсии в музеях.',
     videoCaption: 'Одна минута — и вы почувствуете, как проходит экскурсия со мной',
     primary: 'Забронировать экскурсию',
     secondary: 'Познакомиться ближе',
+    phoneNote: 'все мессенджеры',
   },
   about: {
     title: 'Познакомимся',
@@ -489,6 +503,7 @@ const ru: Dict = {
     paragraphs: [
       'Я историк с университетским образованием и лицензированный гид в Ватикане, Риме и Австрии. В Риме живу и работаю более двадцати лет.',
       'Провожу экскурсии на родном языке. Рассказываю не даты, а истории — о людях, создавших этот город, и о том, почему он до сих пор жив.',
+      'Последние пять лет Вена стала моим вторым домом. Безмерно люблю Рим, Ватикан и Вену — и помогу вам влюбиться в эти города.',
     ],
     facts: [
       ['Образование', 'Историк, университетское'],
@@ -727,10 +742,11 @@ const en: Dict = {
   hero: {
     kicker: 'Guide & historian · Rome · Vatican · Vienna',
     title: 'Give yourself Rome!',
-    lead: 'Oleksandra Lukan, historian and licensed guide in Rome, the Vatican and Vienna. I’ll gladly help you touch the city — with your eyes, your soul and your heart: see it, feel it, and fall in love! In your own language, at your own pace.',
+    lead: 'Historian and licensed guide. Signature tours — for over 20 years I’ve made travellers fall in love with Vienna, Rome and the Vatican. Absorbing, one-breath overview and museum tours.',
     videoCaption: 'One minute, and you’ll feel what a tour with me is like',
     primary: 'Book a tour',
     secondary: 'Get to know me',
+    phoneNote: 'all messengers',
   },
   about: {
     title: 'About me',
@@ -738,6 +754,7 @@ const en: Dict = {
     paragraphs: [
       'I’m a university-trained historian and a licensed guide in the Vatican, Rome and Austria. I’ve lived and worked in Rome for more than twenty years.',
       'I lead tours in your own language. I don’t recite dates — I tell stories about the people who built this city and why it is still alive.',
+      'For the last five years Vienna has become my second home. I love Rome, the Vatican and Vienna beyond measure — and I’ll help you fall in love with these cities.',
     ],
     facts: [
       ['Education', 'Historian, university degree'],
