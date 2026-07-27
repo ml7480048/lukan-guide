@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { PIC, dict, isLocale, type Locale } from '@/lib/site';
-import { VideoHero } from '@/components/VideoHero';
+import { CONTACT, PIC, dict, isLocale, type Locale } from '@/lib/site';
+import { VideoCarousel } from '@/components/VideoCarousel';
 import { Socials } from '@/components/Socials';
-import { Arrow, Camera, Star } from '@/components/icons';
+import { Arrow, Camera, Phone, Star } from '@/components/icons';
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -29,13 +29,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {t.hero.secondary}
               </a>
             </div>
+            <a href={`tel:${CONTACT.phoneTel}`} className="hero__phone">
+              <Phone />
+              {CONTACT.phoneHuman} — {t.hero.phoneNote}
+            </a>
             <div className="socials">
               <span className="socials__label">{t.ui.followMe}:</span>
               <Socials soonLabel={t.ui.socialSoon} />
             </div>
           </div>
 
-          <VideoHero caption={t.hero.videoCaption} soon={t.ui.videoSoon} watch={t.ui.watchVideo} />
+          <VideoCarousel caption={t.hero.videoCaption} soon={t.ui.videoSoon} watch={t.ui.watchVideo} />
         </div>
       </section>
 
@@ -158,9 +162,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="ctaband__row">
               <Link href={`/${loc}/book`} className="btn btn--primary btn--lg">
                 {t.book.form.whatsapp}
-              </Link>
-              <Link href={`/${loc}/glossary`} className="btn btn--ghost btn--lg">
-                {t.nav.glossary}
               </Link>
             </div>
           </div>
