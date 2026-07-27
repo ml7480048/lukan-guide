@@ -61,7 +61,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 {CONTACT.email}
               </a>
             </li>
-            <li>Viber · WhatsApp · Telegram</li>
+            <li>Viber · WhatsApp</li>
           </ul>
         </div>
       </div>
