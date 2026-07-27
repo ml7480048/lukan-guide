@@ -913,11 +913,10 @@ ol {
   align-content: start;
 }
 .tour__top {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
   align-items: baseline;
-  justify-content: space-between;
 }
 .tour__title {
   font-size: 1.375rem;
