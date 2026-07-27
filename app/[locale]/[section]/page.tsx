@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { LOCALES, PIC, SECTIONS, SITE_URL, dict, isLocale, isSection, type Locale, type SectionSlug } from '@/lib/site';
 import { Booking } from '@/components/Booking';
+import { Availability } from '@/components/Availability';
 import { JsonLd } from '@/components/JsonLd';
 import { Arrow, Camera, Star } from '@/components/icons';
 
@@ -111,6 +112,16 @@ export default async function SectionPage({
               </p>
             </div>
             <Booking t={t.book} />
+          </div>
+        </section>
+
+        <section className="section section--sky" style={{ paddingTop: 0 }}>
+          <div className="shell">
+            <div className="section__head reveal">
+              <h2 className="section__title">{t.book.calendar.title}</h2>
+              <p className="section__lead">{t.book.calendar.lead}</p>
+            </div>
+            <Availability t={t.book.calendar} />
           </div>
         </section>
       </>
