@@ -389,6 +389,11 @@ ol {
   background: #fff;
   cursor: pointer;
   color: var(--blue-deep);
+  flex: none;
+}
+.burger svg {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 @media (min-width: 64rem) {
   .burger {
@@ -401,10 +406,12 @@ ol {
   position: fixed;
   inset: 0;
   z-index: 60;
+  height: 100dvh;
   background: var(--paper);
   display: grid;
   grid-template-rows: auto 1fr;
   animation: sheet-in 0.3s var(--ease);
+  overscroll-behavior: contain;
 }
 @keyframes sheet-in {
   from {
@@ -420,11 +427,14 @@ ol {
   border-bottom: 1px solid var(--line-soft);
 }
 .sheet__nav {
-  padding: 1.5rem 0 3rem;
+  padding: 1.5rem 0 4rem;
   display: grid;
   gap: 0.25rem;
   align-content: start;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  min-height: 0;
 }
 .sheet__nav a {
   padding: 0.9rem 0.25rem;
@@ -553,6 +563,96 @@ ol {
   font-size: 0.8125rem;
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
+}
+
+/* ---------------------------------------------------------- hero phone */
+
+.hero__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+  color: var(--blue-strong);
+  text-decoration: none;
+  font-size: 1.0625rem;
+  transition: color 0.2s;
+}
+.hero__phone:hover {
+  color: var(--blue);
+}
+.hero__phone svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--blue);
+  flex: none;
+}
+
+/* -------------------------------------------------------- video carousel */
+
+.vcarousel {
+  position: relative;
+}
+.vcarousel__track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-inline: 11%;
+  padding-block: 0.5rem;
+  scrollbar-width: none;
+}
+.vcarousel__track::-webkit-scrollbar {
+  display: none;
+}
+.vcarousel__track > .video {
+  flex: 0 0 78%;
+  scroll-snap-align: center;
+}
+@media (min-width: 48rem) {
+  .vcarousel__track > .video {
+    flex-basis: 62%;
+  }
+}
+.vcarousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  color: var(--blue-deep);
+  transition: background 0.2s, color 0.2s;
+}
+.vcarousel__btn:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+.vcarousel__btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.vcarousel__btn--prev {
+  left: -0.4rem;
+}
+.vcarousel__btn--next {
+  right: -0.4rem;
+}
+@media (min-width: 30rem) {
+  .vcarousel__btn--prev {
+    left: 0.4rem;
+  }
+  .vcarousel__btn--next {
+    right: 0.4rem;
+  }
 }
 
 /* --------------------------------------------------------------- socials */
