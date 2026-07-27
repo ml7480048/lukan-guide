@@ -177,7 +177,7 @@ const ua: Dict = {
   langName: 'UA',
   htmlLang: 'uk',
   meta: {
-    title: 'Олександра Лукань — приватний гід у Римі, Ватикані та Відні',
+    title: 'Олександра Лукань — гід у Римі, Ватикані та Відні',
     description:
       'Індивідуальні екскурсії українською та російською у Римі, Ватикані й Відні з істориком Олександрою Лукань. Понад 20 років досвіду. Легке бронювання у WhatsApp.',
   },
@@ -211,7 +211,7 @@ const ua: Dict = {
     notFoundText: 'Можливо, адреса змінилася. Поверніться на головну.',
   },
   hero: {
-    kicker: 'Приватний гід-історик · Рим · Ватикан · Відень',
+    kicker: 'Гід-історик · Рим · Ватикан · Відень',
     title: 'Пройдімося Римом разом — вашою мовою',
     lead: 'Я Олександра Лукань, історик і ліцензований гід. Понад 20 років показую Рим, Ватикан і Відень українською та російською — так, щоб місто стало зрозумілим і рідним.',
     videoCaption: 'Одна хвилина — і ви відчуєте, як проходить екскурсія зі мною',
@@ -334,12 +334,6 @@ const ua: Dict = {
           highlights: ['Квитки без черги', 'Групи та індивідуально'],
         },
         {
-          title: 'Нічний Ватикан',
-          duration: '3 години',
-          text: 'Сезонна екскурсія (кінець квітня — жовтень): колекції при світлі, коли музеї майже порожні.',
-          note: 'Квитки лімітовані, бронюйте заздалегідь',
-        },
-        {
           title: 'Ватикан + собор і купол',
           duration: '4–5 годин',
           text: 'Розширений маршрут із підйомом на купол Святого Петра заради панорами Риму.',
@@ -411,7 +405,7 @@ const ua: Dict = {
     },
   },
   footer: {
-    tagline: 'Приватний гід-історик у Римі, Ватикані та Відні',
+    tagline: 'Гід-історик у Римі, Ватикані та Відні',
     made: 'Відповідаю щодня. Якщо не відповіла відразу — я на екскурсії.',
     imagery: 'Фотографії тимчасові, будуть замінені власними знімками Олександри.',
     rooms: 'Розділи',
@@ -424,7 +418,7 @@ const ru: Dict = {
   langName: 'RU',
   htmlLang: 'ru',
   meta: {
-    title: 'Александра Лукань — частный гид в Риме, Ватикане и Вене',
+    title: 'Александра Лукань — гид в Риме, Ватикане и Вене',
     description:
       'Индивидуальные экскурсии на русском и украинском в Риме, Ватикане и Вене с историком Александрой Лукань. Более 20 лет опыта. Простое бронирование в WhatsApp.',
   },
@@ -458,7 +452,7 @@ const ru: Dict = {
     notFoundText: 'Возможно, адрес изменился. Вернитесь на главную.',
   },
   hero: {
-    kicker: 'Частный гид-историк · Рим · Ватикан · Вена',
+    kicker: 'Гид-историк · Рим · Ватикан · Вена',
     title: 'Пройдёмся по Риму вместе — на вашем языке',
     lead: 'Я Александра Лукань, историк и лицензированный гид. Более 20 лет показываю Рим, Ватикан и Вену на русском и украинском — так, чтобы город стал понятным и близким.',
     videoCaption: 'Одна минута — и вы почувствуете, как проходит экскурсия со мной',
@@ -581,12 +575,6 @@ const ru: Dict = {
           highlights: ['Билеты без очереди', 'Группы и индивидуально'],
         },
         {
-          title: 'Ночной Ватикан',
-          duration: '3 часа',
-          text: 'Сезонная экскурсия (конец апреля — октябрь): коллекции при свете, когда музеи почти пусты.',
-          note: 'Билеты лимитированы, бронируйте заранее',
-        },
-        {
           title: 'Ватикан + собор и купол',
           duration: '4–5 часов',
           text: 'Расширенный маршрут с подъёмом на купол Святого Петра ради панорамы Рима.',
@@ -658,7 +646,7 @@ const ru: Dict = {
     },
   },
   footer: {
-    tagline: 'Частный гид-историк в Риме, Ватикане и Вене',
+    tagline: 'Гид-историк в Риме, Ватикане и Вене',
     made: 'Отвечаю ежедневно. Если не ответила сразу — я на экскурсии.',
     imagery: 'Фотографии временные, будут заменены собственными снимками Александры.',
     rooms: 'Разделы',
@@ -671,7 +659,7 @@ const en: Dict = {
   langName: 'EN',
   htmlLang: 'en',
   meta: {
-    title: 'Oleksandra Lukan — private guide in Rome, the Vatican and Vienna',
+    title: 'Oleksandra Lukan — guide in Rome, the Vatican and Vienna',
     description:
       'Private tours in Ukrainian and Russian in Rome, the Vatican and Vienna with historian Oleksandra Lukan. 20+ years of experience. Easy booking on WhatsApp.',
   },
@@ -705,7 +693,7 @@ const en: Dict = {
     notFoundText: 'The address may have changed. Please go back home.',
   },
   hero: {
-    kicker: 'Private guide & historian · Rome · Vatican · Vienna',
+    kicker: 'Guide & historian · Rome · Vatican · Vienna',
     title: 'Let’s walk through Rome together',
     lead: 'I’m Oleksandra Lukan, a historian and licensed guide. For over 20 years I’ve shown Rome, the Vatican and Vienna in Ukrainian and Russian — so the city becomes clear and personal.',
     videoCaption: 'One minute, and you’ll feel what a tour with me is like',
@@ -828,12 +816,6 @@ const en: Dict = {
           highlights: ['Skip-the-line tickets', 'Groups and private'],
         },
         {
-          title: 'Vatican by night',
-          duration: '3 hours',
-          text: 'A seasonal tour (late April–October): the collections by light when the museums are almost empty.',
-          note: 'Limited tickets, book ahead',
-        },
-        {
           title: 'Vatican + basilica & dome',
           duration: '4–5 hours',
           text: 'An extended route with the climb to the dome of St Peter’s for a panorama of Rome.',
@@ -905,7 +887,7 @@ const en: Dict = {
     },
   },
   footer: {
-    tagline: 'Private guide & historian in Rome, the Vatican and Vienna',
+    tagline: 'Guide & historian in Rome, the Vatican and Vienna',
     made: 'I reply every day. If I don’t answer at once, I’m on a tour.',
     imagery: 'Photos are temporary and will be replaced with Oleksandra’s own.',
     rooms: 'Sections',
