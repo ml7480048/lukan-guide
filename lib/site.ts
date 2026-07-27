@@ -35,6 +35,21 @@ export const VIDEO = {
   poster: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5',
 } as const;
 
+/**
+ * Availability calendar. Set `googleCalendarSrc` to a PUBLIC Google Calendar
+ * embed URL and the booking page shows a live month calendar of the days
+ * Oleksandra is in Rome / Vienna and which slots are free. Until then a short
+ * explanation shows in its place.
+ *
+ * How to fill it (no code): in Google Calendar make a calendar public, add
+ * all-day events like "Рим — вільно", "Відень", "Зайнято"; then Settings →
+ * "Integrate calendar" → copy the "Embed code" src URL and paste it here.
+ * See README.
+ */
+export const AVAILABILITY = {
+  googleCalendarSrc: null as string | null,
+};
+
 const U = (id: string) => `https://images.unsplash.com/photo-${id}`;
 
 export const PIC = {
@@ -136,6 +151,7 @@ export type Dict = {
     };
     contactsTitle: string;
     note: string;
+    calendar: { title: string; lead: string; legend: string; soon: string };
   };
   reviewsBlock: {
     title: string;
@@ -179,7 +195,7 @@ const ua: Dict = {
   meta: {
     title: 'Олександра Лукань — гід у Римі, Ватикані та Відні',
     description:
-      'Індивідуальні екскурсії українською та російською у Римі, Ватикані й Відні з істориком Олександрою Лукань. Понад 20 років досвіду. Легке бронювання у WhatsApp.',
+      'Індивідуальні екскурсії рідною мовою у зручному для Вас темпі в Римі, Ватикані та Відні з історикинею Олександрою Лукань. Понад 20 років досвіду. Легке бронювання у WhatsApp.',
   },
   nav: {
     about: 'Познайомимося',
@@ -211,9 +227,9 @@ const ua: Dict = {
     notFoundText: 'Можливо, адреса змінилася. Поверніться на головну.',
   },
   hero: {
-    kicker: 'Гід-історик · Рим · Ватикан · Відень',
-    title: 'Пройдімося Римом разом — вашою мовою',
-    lead: 'Я Олександра Лукань, історик і ліцензований гід. Понад 20 років показую Рим, Ватикан і Відень українською та російською — так, щоб місто стало зрозумілим і рідним.',
+    kicker: 'Гідеса-історикиня · Рим · Ватикан · Відень',
+    title: 'Подаруйте собі Рим!',
+    lead: 'Олександра Лукань, історикиня, ліцензована гідеса в Римі, Ватикані та Відні. З приємністю допоможу Вам доторкнутись до міста — очима, душею і серцем, побачити його, відчути і закохатись! Рідною мовою, у зручному для Вас темпі.',
     videoCaption: 'Одна хвилина — і ви відчуєте, як проходить екскурсія зі мною',
     primary: 'Забронювати екскурсію',
     secondary: 'Познайомитися ближче',
@@ -222,15 +238,13 @@ const ua: Dict = {
     title: 'Познайомимося',
     lead: 'Коротко про мене — і чому зі мною Рим запам’ятовується надовго.',
     paragraphs: [
-      'Я історик з університетською освітою і ліцензований гід у Ватикані, Римі та Австрії. У Римі живу і працюю понад двадцять років.',
-      'Веду екскурсії українською та російською. Розповідаю не дати, а історії — про людей, які створили це місто, і про те, чому воно й досі живе.',
-      'Окрім екскурсій, допоможу з перекладом на італійську, трансфером, шопінгом і фотосесією — щоб ваша поїздка була легкою.',
+      'Я історикиня з університетською освітою і ліцензована гідеса у Ватикані, Римі та Австрії. У Римі живу і працюю понад двадцять років.',
+      'Проводжу екскурсії рідною мовою. Розповідаю не дати, а історії — про людей, які створили це місто, і про те, чому воно й досі живе.',
     ],
     facts: [
-      ['Освіта', 'Історик, університетська'],
+      ['Освіта', 'Історикиня, університетська'],
       ['Досвід', 'Понад 20 років у Римі'],
       ['Ліцензія', 'Ватикан, Рим, Австрія'],
-      ['Мови', 'Українська, російська, італійська'],
       ['Формат', 'Індивідуально та малі групи'],
     ],
     quote: 'Подаруйте собі цю зустріч з Римом. А я допоможу зробити її незабутньою.',
@@ -273,6 +287,12 @@ const ua: Dict = {
     },
     contactsTitle: 'Прямі контакти',
     note: 'Вартість залежить від напряму, тривалості й кількості людей. Напишіть — назву ціну і вільні дати.',
+    calendar: {
+      title: 'Мій календар',
+      lead: 'Тут видно, в які дні я в Римі та у Відні і де ще є вільні слоти. Оберіть день і напишіть мені — підтверджу.',
+      legend: 'Рим · Відень · вільні дні позначено в календарі.',
+      soon: 'Календар доступності скоро з’явиться тут. Поки що просто напишіть бажану дату — і я одразу скажу, чи вона вільна.',
+    },
   },
   reviewsBlock: {
     title: 'Відгуки',
@@ -303,7 +323,7 @@ const ua: Dict = {
     ],
     faqTitle: 'Часті запитання',
     faq: [
-      ['Якою мовою проходять екскурсії?', 'Українською та російською. Також можливий переклад на/з італійської.'],
+      ['Якою мовою проходять екскурсії?', 'Рідною мовою. Також можливий переклад на/з італійської.'],
       ['Скільки коштує екскурсія?', 'Ціна залежить від напряму, тривалості й кількості людей. Напишіть у WhatsApp — назву точну вартість і вільні дати.'],
       ['Чи потрібно купувати квитки окремо?', 'У Ватикан, Галерею Боргезе та Колізей квитки бронюються заздалегідь і оплачуються окремо. Я допоможу все організувати.'],
       ['Можна з дітьми?', 'Так. Скорочу маршрут і підберу історії за віком дитини.'],
@@ -379,33 +399,37 @@ const ua: Dict = {
     },
     vienna: {
       title: 'Відень',
-      lead: 'Імперська столиця — палаци, музеї і кав’ярні. Екскурсії за запитом.',
-      draft: true,
+      lead: 'Імперська столиця — палаци, музеї, кав’ярні й таємниці старого міста.',
       intro: [
-        'Я ліцензований гід і в Австрії. Відень показую тим, хто хоче поєднати Рим з імперською Європою або приїхати окремо.',
-        'Маршрути складаю індивідуально. Напишіть, коли плануєте, і я запропоную програму та вартість.',
+        'Я ліцензована гідеса і в Австрії. Відень показую тим, хто хоче поєднати Рим з імперською Європою або приїхати окремо — рідною мовою і у зручному для Вас темпі.',
+        'Нижче — основні маршрути. Тривалість, дату і вартість узгоджуємо індивідуально: напишіть, коли плануєте.',
       ],
-      highlightsTitle: 'Що можна побачити',
+      highlightsTitle: 'Що побачимо',
       highlights: [
-        'Історичний центр, собор Святого Стефана, Гофбург',
-        'Палац Шенбрунн і його сади',
-        'Музейний квартал і Бельведер',
-        'Віденські кав’ярні й традиції міста',
+        'Старе місто: собор Святого Стефана, Гофбург, Опера, Грабен',
+        'Приховані двори і вулички, які туристи проходять повз',
+        'Витоки Відня: від римського табору до середньовічного міста',
+        'Палац Шенбрунн і сади, музеї та Бельведер',
+        'Музичний Відень: Моцарт і Штраус',
       ],
-      toursTitle: 'Напрями (за запитом)',
+      toursTitle: 'Основні екскурсії',
       tours: [
-        { title: 'Оглядовий Відень', duration: 'за запитом', text: 'Перше знайомство з імперською столицею: центр, головні площі й собор.' },
-        { title: 'Шенбрунн і Габсбурги', duration: 'за запитом', text: 'Літня резиденція імператорів, історія династії та сади палацу.' },
-        { title: 'Музейний Відень', duration: 'за запитом', text: 'Художньо-історичний музей, Бельведер і мистецтво віденського модерну.' },
+        { title: 'Головне у Відні', duration: '2–3 години', text: 'Оглядова пішохідна: собор Святого Стефана, Гофбург, Опера, Грабен і Кольмаркт — знайомство з містом і його історіями за один вихід.' },
+        { title: 'Таємниці старого міста', duration: '2–2,5 години', text: 'Сходимо з головних вулиць у приховані двори і вулички — саме вони роблять Відень таким особливим.' },
+        { title: 'Витоки Відня: від римлян до середньовіччя', duration: '2 години', text: 'Від сліду римського табору Віндобона до середньовічних вуличок, які й досі формують місто.' },
+        { title: 'Шенбрунн і Габсбурги', duration: '3 години', text: 'Літня резиденція імператорів, історія династії та сади палацу.', note: 'Вхідні квитки — окремо' },
+        { title: 'Музеї і палаци Відня', duration: '2–4 години', text: 'Художньо-історичний музей, Бельведер і мистецтво віденського модерну — Клімт і його час.', note: 'Вхідні квитки — окремо' },
+        { title: 'Музичний Відень', duration: '2 години', text: 'Місто Моцарта і Штрауса, великих концертних залів — там, де народжувалася європейська музика.' },
       ],
       faq: [
-        ['Ви проводите екскурсії у Відні?', 'Так, за попереднім запитом. Напишіть дати — складу програму.'],
+        ['Ви проводите екскурсії у Відні?', 'Так. Напишіть дати — складу програму рідною мовою і назву вартість.'],
         ['Можна поєднати Рим і Відень?', 'Так, це популярний варіант. Допоможу спланувати обидві частини.'],
+        ['Вхідні квитки входять у ціну?', 'У Шенбрунн і музеї квитки оплачуються окремо. Я допоможу все забронювати.'],
       ],
     },
   },
   footer: {
-    tagline: 'Гід-історик у Римі, Ватикані та Відні',
+    tagline: 'Гідеса-історикиня у Римі, Ватикані та Відні',
     made: 'Відповідаю щодня. Якщо не відповіла відразу — я на екскурсії.',
     imagery: 'Фотографії тимчасові, будуть замінені власними знімками Олександри.',
     rooms: 'Розділи',
@@ -420,7 +444,7 @@ const ru: Dict = {
   meta: {
     title: 'Александра Лукань — гид в Риме, Ватикане и Вене',
     description:
-      'Индивидуальные экскурсии на русском и украинском в Риме, Ватикане и Вене с историком Александрой Лукань. Более 20 лет опыта. Простое бронирование в WhatsApp.',
+      'Индивидуальные экскурсии на родном языке в удобном для Вас темпе в Риме, Ватикане и Вене с историком Александрой Лукань. Более 20 лет опыта. Простое бронирование в WhatsApp.',
   },
   nav: {
     about: 'Познакомимся',
@@ -453,8 +477,8 @@ const ru: Dict = {
   },
   hero: {
     kicker: 'Гид-историк · Рим · Ватикан · Вена',
-    title: 'Пройдёмся по Риму вместе — на вашем языке',
-    lead: 'Я Александра Лукань, историк и лицензированный гид. Более 20 лет показываю Рим, Ватикан и Вену на русском и украинском — так, чтобы город стал понятным и близким.',
+    title: 'Подарите себе Рим!',
+    lead: 'Александра Лукань, историк, лицензированный гид в Риме, Ватикане и Вене. С удовольствием помогу Вам прикоснуться к городу — глазами, душой и сердцем, увидеть его, почувствовать и влюбиться! На родном языке, в удобном для Вас темпе.',
     videoCaption: 'Одна минута — и вы почувствуете, как проходит экскурсия со мной',
     primary: 'Забронировать экскурсию',
     secondary: 'Познакомиться ближе',
@@ -464,14 +488,12 @@ const ru: Dict = {
     lead: 'Коротко обо мне — и почему со мной Рим запоминается надолго.',
     paragraphs: [
       'Я историк с университетским образованием и лицензированный гид в Ватикане, Риме и Австрии. В Риме живу и работаю более двадцати лет.',
-      'Веду экскурсии на русском и украинском. Рассказываю не даты, а истории — о людях, создавших этот город, и о том, почему он до сих пор жив.',
-      'Кроме экскурсий, помогу с переводом на итальянский, трансфером, шопингом и фотосессией — чтобы поездка была лёгкой.',
+      'Провожу экскурсии на родном языке. Рассказываю не даты, а истории — о людях, создавших этот город, и о том, почему он до сих пор жив.',
     ],
     facts: [
       ['Образование', 'Историк, университетское'],
       ['Опыт', 'Более 20 лет в Риме'],
       ['Лицензия', 'Ватикан, Рим, Австрия'],
-      ['Языки', 'Русский, украинский, итальянский'],
       ['Формат', 'Индивидуально и малые группы'],
     ],
     quote: 'Подарите себе эту встречу с Римом. А я помогу сделать её незабываемой.',
@@ -514,6 +536,12 @@ const ru: Dict = {
     },
     contactsTitle: 'Прямые контакты',
     note: 'Стоимость зависит от направления, длительности и количества людей. Напишите — назову цену и свободные даты.',
+    calendar: {
+      title: 'Мой календарь',
+      lead: 'Здесь видно, в какие дни я в Риме и в Вене и где ещё есть свободные слоты. Выберите день и напишите мне — подтвержу.',
+      legend: 'Рим · Вена · свободные дни отмечены в календаре.',
+      soon: 'Календарь доступности скоро появится здесь. Пока просто напишите желаемую дату — и я сразу скажу, свободна ли она.',
+    },
   },
   reviewsBlock: {
     title: 'Отзывы',
@@ -544,7 +572,7 @@ const ru: Dict = {
     ],
     faqTitle: 'Частые вопросы',
     faq: [
-      ['На каком языке проходят экскурсии?', 'На русском и украинском. Также возможен перевод на/с итальянского.'],
+      ['На каком языке проходят экскурсии?', 'На родном языке. Также возможен перевод на/с итальянского.'],
       ['Сколько стоит экскурсия?', 'Цена зависит от направления, длительности и количества людей. Напишите в WhatsApp — назову точную стоимость и свободные даты.'],
       ['Нужно ли покупать билеты отдельно?', 'В Ватикан, Галерею Боргезе и Колизей билеты бронируются заранее и оплачиваются отдельно. Я помогу всё организовать.'],
       ['Можно с детьми?', 'Да. Сокращу маршрут и подберу истории по возрасту ребёнка.'],
@@ -620,28 +648,32 @@ const ru: Dict = {
     },
     vienna: {
       title: 'Вена',
-      lead: 'Имперская столица — дворцы, музеи и кофейни. Экскурсии по запросу.',
-      draft: true,
+      lead: 'Имперская столица — дворцы, музеи, кофейни и тайны старого города.',
       intro: [
-        'Я лицензированный гид и в Австрии. Вену показываю тем, кто хочет соединить Рим с имперской Европой или приехать отдельно.',
-        'Маршруты составляю индивидуально. Напишите, когда планируете, и я предложу программу и стоимость.',
+        'Я лицензированный гид и в Австрии. Вену показываю тем, кто хочет соединить Рим с имперской Европой или приехать отдельно — на родном языке и в удобном для Вас темпе.',
+        'Ниже — основные маршруты. Длительность, дату и стоимость согласуем индивидуально: напишите, когда планируете.',
       ],
-      highlightsTitle: 'Что можно увидеть',
+      highlightsTitle: 'Что увидим',
       highlights: [
-        'Исторический центр, собор Святого Стефана, Хофбург',
-        'Дворец Шёнбрунн и его сады',
-        'Музейный квартал и Бельведер',
-        'Венские кофейни и традиции города',
+        'Старый город: собор Святого Стефана, Хофбург, Опера, Грабен',
+        'Скрытые дворы и улочки, мимо которых проходят туристы',
+        'Истоки Вены: от римского лагеря до средневекового города',
+        'Дворец Шёнбрунн и сады, музеи и Бельведер',
+        'Музыкальная Вена: Моцарт и Штраус',
       ],
-      toursTitle: 'Направления (по запросу)',
+      toursTitle: 'Основные экскурсии',
       tours: [
-        { title: 'Обзорная Вена', duration: 'по запросу', text: 'Первое знакомство с имперской столицей: центр, главные площади и собор.' },
-        { title: 'Шёнбрунн и Габсбурги', duration: 'по запросу', text: 'Летняя резиденция императоров, история династии и сады дворца.' },
-        { title: 'Музейная Вена', duration: 'по запросу', text: 'Художественно-исторический музей, Бельведер и искусство венского модерна.' },
+        { title: 'Главное в Вене', duration: '2–3 часа', text: 'Обзорная пешеходная: собор Святого Стефана, Хофбург, Опера, Грабен и Кольмаркт — знакомство с городом и его историями за один выход.' },
+        { title: 'Тайны старого города', duration: '2–2,5 часа', text: 'Сходим с главных улиц в скрытые дворы и улочки — именно они делают Вену такой особенной.' },
+        { title: 'Истоки Вены: от римлян до средневековья', duration: '2 часа', text: 'От следа римского лагеря Виндобона до средневековых улочек, которые до сих пор формируют город.' },
+        { title: 'Шёнбрунн и Габсбурги', duration: '3 часа', text: 'Летняя резиденция императоров, история династии и сады дворца.', note: 'Входные билеты — отдельно' },
+        { title: 'Музеи и дворцы Вены', duration: '2–4 часа', text: 'Художественно-исторический музей, Бельведер и искусство венского модерна — Климт и его время.', note: 'Входные билеты — отдельно' },
+        { title: 'Музыкальная Вена', duration: '2 часа', text: 'Город Моцарта и Штрауса, великих концертных залов — там, где рождалась европейская музыка.' },
       ],
       faq: [
-        ['Вы проводите экскурсии в Вене?', 'Да, по предварительному запросу. Напишите даты — составлю программу.'],
+        ['Вы проводите экскурсии в Вене?', 'Да. Напишите даты — составлю программу на родном языке и назову стоимость.'],
         ['Можно совместить Рим и Вену?', 'Да, это популярный вариант. Помогу спланировать обе части.'],
+        ['Входные билеты включены в цену?', 'В Шёнбрунн и музеи билеты оплачиваются отдельно. Я помогу всё забронировать.'],
       ],
     },
   },
@@ -661,7 +693,7 @@ const en: Dict = {
   meta: {
     title: 'Oleksandra Lukan — guide in Rome, the Vatican and Vienna',
     description:
-      'Private tours in Ukrainian and Russian in Rome, the Vatican and Vienna with historian Oleksandra Lukan. 20+ years of experience. Easy booking on WhatsApp.',
+      'Private tours in your own language, at your own pace, in Rome, the Vatican and Vienna with historian Oleksandra Lukan. 20+ years of experience. Easy booking on WhatsApp.',
   },
   nav: {
     about: 'About me',
@@ -694,8 +726,8 @@ const en: Dict = {
   },
   hero: {
     kicker: 'Guide & historian · Rome · Vatican · Vienna',
-    title: 'Let’s walk through Rome together',
-    lead: 'I’m Oleksandra Lukan, a historian and licensed guide. For over 20 years I’ve shown Rome, the Vatican and Vienna in Ukrainian and Russian — so the city becomes clear and personal.',
+    title: 'Give yourself Rome!',
+    lead: 'Oleksandra Lukan, historian and licensed guide in Rome, the Vatican and Vienna. I’ll gladly help you touch the city — with your eyes, your soul and your heart: see it, feel it, and fall in love! In your own language, at your own pace.',
     videoCaption: 'One minute, and you’ll feel what a tour with me is like',
     primary: 'Book a tour',
     secondary: 'Get to know me',
@@ -705,14 +737,12 @@ const en: Dict = {
     lead: 'A few words about me — and why Rome stays with you after a tour with me.',
     paragraphs: [
       'I’m a university-trained historian and a licensed guide in the Vatican, Rome and Austria. I’ve lived and worked in Rome for more than twenty years.',
-      'I lead tours in Ukrainian and Russian. I don’t recite dates — I tell stories about the people who built this city and why it is still alive.',
-      'Beyond tours, I can help with Italian translation, transfers, shopping and a photo session, so your trip is easy.',
+      'I lead tours in your own language. I don’t recite dates — I tell stories about the people who built this city and why it is still alive.',
     ],
     facts: [
       ['Education', 'Historian, university degree'],
       ['Experience', '20+ years in Rome'],
       ['Licence', 'Vatican, Rome, Austria'],
-      ['Languages', 'Ukrainian, Russian, Italian'],
       ['Format', 'Private and small groups'],
     ],
     quote: 'Give yourself this meeting with Rome. I’ll help make it unforgettable.',
@@ -755,6 +785,12 @@ const en: Dict = {
     },
     contactsTitle: 'Direct contacts',
     note: 'The price depends on the destination, length and group size. Write to me and I’ll share the price and free dates.',
+    calendar: {
+      title: 'My calendar',
+      lead: 'Here you can see which days I’m in Rome and Vienna and where there are still free slots. Pick a day and write to me — I’ll confirm.',
+      legend: 'Rome · Vienna · free days are marked in the calendar.',
+      soon: 'The availability calendar will appear here soon. For now, just tell me your preferred date and I’ll say straight away whether it’s free.',
+    },
   },
   reviewsBlock: {
     title: 'Reviews',
@@ -785,7 +821,7 @@ const en: Dict = {
     ],
     faqTitle: 'Frequently asked',
     faq: [
-      ['What languages are the tours in?', 'Ukrainian and Russian. Italian translation is also available.'],
+      ['What languages are the tours in?', 'In your own language. Italian translation is also available.'],
       ['How much does a tour cost?', 'It depends on the destination, length and group size. Message me on WhatsApp for the exact price and free dates.'],
       ['Do I buy tickets separately?', 'The Vatican, Galleria Borghese and Colosseum are booked in advance and paid separately. I help arrange everything.'],
       ['Can I come with children?', 'Yes. I shorten the route and choose stories for the child’s age.'],
@@ -861,28 +897,32 @@ const en: Dict = {
     },
     vienna: {
       title: 'Vienna',
-      lead: 'The imperial capital — palaces, museums and cafés. Tours on request.',
-      draft: true,
+      lead: 'The imperial capital — palaces, museums, cafés and the secrets of the old town.',
       intro: [
-        'I’m a licensed guide in Austria too. I show Vienna to those who want to pair Rome with imperial Europe, or come separately.',
-        'Routes are built individually. Tell me your dates and I’ll suggest a programme and price.',
+        'I’m a licensed guide in Austria too. I show Vienna to those who want to pair Rome with imperial Europe, or come separately — in your own language and at your own pace.',
+        'Below are the main routes. Length, date and price are agreed individually — tell me when you’re planning.',
       ],
-      highlightsTitle: 'What you can see',
+      highlightsTitle: 'What we’ll see',
       highlights: [
-        'The historic centre, St Stephen’s Cathedral, the Hofburg',
-        'Schönbrunn Palace and its gardens',
-        'The Museum Quarter and the Belvedere',
-        'Viennese coffee houses and the city’s traditions',
+        'The old town: St Stephen’s Cathedral, the Hofburg, the Opera, the Graben',
+        'Hidden courtyards and lanes most visitors walk straight past',
+        'Vienna’s origins: from the Roman camp to the medieval city',
+        'Schönbrunn Palace and gardens, the museums and the Belvedere',
+        'Musical Vienna: Mozart and Strauss',
       ],
-      toursTitle: 'Directions (on request)',
+      toursTitle: 'Main tours',
       tours: [
-        { title: 'Vienna overview', duration: 'on request', text: 'A first meeting with the imperial capital: the centre, the main squares and the cathedral.' },
-        { title: 'Schönbrunn & the Habsburgs', duration: 'on request', text: 'The emperors’ summer residence, the dynasty’s story and the palace gardens.' },
-        { title: 'Vienna’s museums', duration: 'on request', text: 'The Kunsthistorisches Museum, the Belvedere and Viennese modernism.' },
+        { title: 'Vienna highlights', duration: '2–3 hours', text: 'The overview on foot: St Stephen’s, the Hofburg, the Opera, the Graben and Kohlmarkt — the city and its stories in one walk.' },
+        { title: 'Secrets of the old town', duration: '2–2.5 hours', text: 'We leave the main streets for the hidden courtyards and lanes — the very thing that makes Vienna special.' },
+        { title: 'Vienna’s origins: Roman to medieval', duration: '2 hours', text: 'From the trace of the Roman camp Vindobona to the medieval lanes that still shape the city.' },
+        { title: 'Schönbrunn & the Habsburgs', duration: '3 hours', text: 'The emperors’ summer residence, the dynasty’s story and the palace gardens.', note: 'Entry tickets separate' },
+        { title: 'Museums & palaces of Vienna', duration: '2–4 hours', text: 'The Kunsthistorisches Museum, the Belvedere and Viennese modernism — Klimt and his age.', note: 'Entry tickets separate' },
+        { title: 'Musical Vienna', duration: '2 hours', text: 'The city of Mozart and Strauss and its great concert halls — where European music was born.' },
       ],
       faq: [
-        ['Do you give tours in Vienna?', 'Yes, by prior request. Send your dates and I’ll build a programme.'],
+        ['Do you give tours in Vienna?', 'Yes. Send your dates and I’ll build a programme in your own language and quote the price.'],
         ['Can I combine Rome and Vienna?', 'Yes, it’s a popular option. I’ll help plan both parts.'],
+        ['Are entry tickets included?', 'For Schönbrunn and the museums, tickets are paid separately. I’ll help arrange everything.'],
       ],
     },
   },
