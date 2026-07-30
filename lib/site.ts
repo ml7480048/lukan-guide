@@ -57,7 +57,8 @@ export const VIDEOS: { youtubeId: string | null; poster: string }[] = [
  * See README.
  */
 export const AVAILABILITY = {
-  googleCalendarSrc: null as string | null,
+  googleCalendarSrc:
+    'https://calendar.google.com/calendar/embed?src=5c3fc82fa55713fefd311d086691c50f161cc9dc7512b0cf74aa780ccfba0160%40group.calendar.google.com&ctz=Europe%2FRome&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0' as string | null,
 };
 
 const U = (id: string) => `https://images.unsplash.com/photo-${id}`;
