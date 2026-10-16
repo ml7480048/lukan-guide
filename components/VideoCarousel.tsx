@@ -1,19 +1,21 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { VIDEOS } from '@/lib/site';
 import { Arrow, Play } from './icons';
 
 /**
  * Home video carousel: three slides, the centre one active, scroll left/right
- * to the others (native swipe on touch, arrows on desktop). Each slide plays
- * its YouTube video on click once `youtubeId` is set; until then a labelled
- * poster shows.
+ * to the others (native swipe on touch, arrows on desktop). The slide most in
+ * view autoplays its looping, muted clip; the rest hold on their poster. A
+ * real YouTube video (if `youtubeId` is ever set) takes priority and plays on
+ * click.
  */
 export function VideoCarousel({ caption, soon, watch }: { caption: string; soon: string; watch: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState<number | null>(null);
+  const [active, setActive] = useState(0);
 
   const scroll = (dir: 1 | -1) => {
     const track = trackRef.current;
@@ -23,6 +25,26 @@ export function VideoCarousel({ caption, soon, watch }: { caption: string; soon:
     track.scrollBy({ left: dir * step, behavior: 'smooth' });
   };
 
+  // Track which slide is centred so only that clip plays.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slides = Array.from(track.querySelectorAll<HTMLElement>('.video'));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+            const i = slides.indexOf(e.target as HTMLElement);
+            if (i >= 0) setActive(i);
+          }
+        });
+      },
+      { root: track, threshold: [0.6] },
+    );
+    slides.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="vcarousel reveal">
       <button type="button" className="vcarousel__btn vcarousel__btn--prev" onClick={() => scroll(-1)} aria-label="←">
@@ -31,20 +53,40 @@ export function VideoCarousel({ caption, soon, watch }: { caption: string; soon:
 
       <div className="vcarousel__track" ref={trackRef}>
         {VIDEOS.map((v, i) => {
-          const isPlaying = playing === i && v.youtubeId;
+          const isYouTube = playing === i && v.youtubeId;
+          const isActive = active === i;
           return (
-            <div className="video" key={i}>
-              {isPlaying ? (
+            <div className={`video${isActive ? ' video--active' : ''}`} key={i}>
+              {isYouTube ? (
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?autoplay=1&rel=0`}
                   title={`${caption} — ${i + 1}`}
                   allow="autoplay; encrypted-media; picture-in-picture"
                   allowFullScreen
                 />
+              ) : v.src ? (
+                <>
+                  <video
+                    src={v.src}
+                    poster={`${v.poster}?w=1000&q=70`}
+                    muted
+                    loop
+                    playsInline
+                    preload={i === 0 ? 'auto' : 'metadata'}
+                    autoPlay={isActive}
+                    ref={(el) => {
+                      if (!el) return;
+                      if (isActive) el.play().catch(() => {});
+                      else el.pause();
+                    }}
+                  />
+                  <div className="video__scrim" />
+                  {i === 0 && <span className="video__caption">{caption}</span>}
+                </>
               ) : (
                 <>
                   <Image
-                    src={`${v.poster}?auto=format&fit=crop&w=1000&q=70`}
+                    src={`${v.poster}?w=1000&q=70`}
                     alt=""
                     fill
                     sizes="(min-width: 62rem) 40vw, 80vw"
