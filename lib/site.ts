@@ -28,21 +28,38 @@ export const SOCIALS: { kind: 'instagram' | 'facebook' | 'youtube' | 'telegram';
  * The main video. PLACEHOLDER — set `youtubeId` to the real video id (the part
  * after `watch?v=`) and the hero plays it. Until then a labelled poster shows.
  */
+/**
+ * Higgsfield CDN — the generated photos & videos live here (unsigned, permanent).
+ */
+const CF = 'https://d8j0ntlcm91z4.cloudfront.net/user_3KgLCjdSgIYFkjpkNOqtuL7De1z';
+const M = (file: string) => `${CF}/${file}`;
+
 export const VIDEO = {
   youtubeId: null as string | null,
-  poster: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5',
+  poster: M('hf_20261016_121108_d89c6f11-6aad-48ec-9353-5f83e9ff719f.png'),
 } as const;
 
 /**
- * Up to three videos for the home carousel — the centre one is active, you can
- * scroll left/right to the others. Set `youtubeId` (the part after `watch?v=`)
- * for each real video; until then a labelled poster shows. Swap `poster` for
- * your own thumbnail image any time.
+ * Up to three clips for the home carousel. `src` is a looping mp4 (generated);
+ * `poster` is its still. `youtubeId` is kept for the option of a real YouTube
+ * video later (takes priority over `src` when set).
  */
-export const VIDEOS: { youtubeId: string | null; poster: string }[] = [
-  { youtubeId: null, poster: 'https://images.unsplash.com/photo-1678970388666-e50b8006ab51' },
-  { youtubeId: null, poster: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5' },
-  { youtubeId: null, poster: 'https://images.unsplash.com/photo-1624347061892-822a65656966' },
+export const VIDEOS: { youtubeId: string | null; src: string | null; poster: string }[] = [
+  {
+    youtubeId: null,
+    src: M('hf_20261016_121959_c3e6023f-f600-448d-b365-c5b33f11215b.mp4'),
+    poster: M('hf_20261016_121108_d89c6f11-6aad-48ec-9353-5f83e9ff719f.png'),
+  },
+  {
+    youtubeId: null,
+    src: M('hf_20261016_122000_bb190669-788f-4157-9cff-fc75b3874d4c.mp4'),
+    poster: M('hf_20261016_121108_75081d73-470d-4c10-81cf-26dcd43472cd.png'),
+  },
+  {
+    youtubeId: null,
+    src: M('hf_20261016_122000_0b5d6c59-a5d5-49a5-ba49-970a5033915c.mp4'),
+    poster: M('hf_20261016_121108_b103d001-c864-43d7-ae0e-65aae8d1d112.png'),
+  },
 ];
 
 /**
@@ -61,16 +78,24 @@ export const AVAILABILITY = {
     'https://calendar.google.com/calendar/embed?src=5c3fc82fa55713fefd311d086691c50f161cc9dc7512b0cf74aa780ccfba0160%40group.calendar.google.com&ctz=Europe%2FRome&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0' as string | null,
 };
 
-const U = (id: string) => `https://images.unsplash.com/photo-${id}`;
-
 export const PIC = {
-  hero: U('1515542622106-78bda8ba0e5b'),
-  about: U('1615497994569-db84b0f1dd55'),
-  vatican: U('1624347061892-822a65656966'),
-  rome: U('1552832230-c0197dd311b5'),
-  vienna: U('1567597435927-80055c207c1c'),
-  reviews: U('1531572753322-ad063cecc140'),
+  hero: M('hf_20261016_121108_d89c6f11-6aad-48ec-9353-5f83e9ff719f.png'),
+  about: M('hf_20261016_121108_05b5eca8-6f29-452c-8521-7797bfa9d898.png'),
+  vatican: M('hf_20261016_121108_75081d73-470d-4c10-81cf-26dcd43472cd.png'),
+  rome: M('hf_20261016_121108_d89c6f11-6aad-48ec-9353-5f83e9ff719f.png'),
+  vienna: M('hf_20261016_121108_b103d001-c864-43d7-ae0e-65aae8d1d112.png'),
+  reviews: M('hf_20261016_121108_eecaeb14-1f3e-4cb8-8e87-8ab89b219c3d.png'),
 } as const;
+
+/** Generated tourist photos used as avatars in the reviews block. */
+export const REVIEW_PHOTOS = [
+  M('hf_20261016_121108_eecaeb14-1f3e-4cb8-8e87-8ab89b219c3d.png'),
+  M('hf_20261016_121108_a8b3ee36-28cc-4f1d-bc31-cd9bbaaeb66f.png'),
+  M('hf_20261016_121108_5019c977-ea53-4b49-85af-70fcdc9fc905.png'),
+] as const;
+
+/** Soft decorative texture for section backgrounds / parallax. */
+export const DECOR = M('hf_20261016_121108_bc40a322-e082-431f-be90-d62ce10f3cb5.png');
 
 export const SECTIONS = ['vatican', 'rome', 'vienna', 'reviews', 'book', 'glossary'] as const;
 export type SectionSlug = (typeof SECTIONS)[number];
