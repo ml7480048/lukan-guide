@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CONTACT, PIC, dict, isLocale, type Locale } from '@/lib/site';
+import { CONTACT, PIC, REVIEW_PHOTOS, dict, isLocale, type Locale } from '@/lib/site';
 import { VideoCarousel } from '@/components/VideoCarousel';
 import { Socials } from '@/components/Socials';
-import { Arrow, Camera, Phone, Star } from '@/components/icons';
+import { Arrow, Phone, Star } from '@/components/icons';
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -118,7 +118,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
 
           <div className="reviews">
-            {t.reviewsBlock.items.map((r) => (
+            {t.reviewsBlock.items.map((r, ri) => (
               <figure key={r.name} className="review reveal" style={{ margin: 0 }}>
                 <div className="review__stars" aria-hidden="true">
                   {[0, 1, 2, 3, 4].map((i) => (
@@ -129,8 +129,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   {r.text}
                 </blockquote>
                 <figcaption className="review__who">
-                  <span className="review__photo" aria-hidden="true">
-                    <Camera />
+                  <span className="review__photo review__photo--img" aria-hidden="true">
+                    <Image
+                      src={`${REVIEW_PHOTOS[ri % REVIEW_PHOTOS.length]}?w=120&q=70`}
+                      alt=""
+                      width={56}
+                      height={56}
+                      sizes="56px"
+                    />
                   </span>
                   <span>
                     <span className="review__name">{r.name}</span>
